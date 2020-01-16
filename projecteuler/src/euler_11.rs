@@ -130,6 +130,6 @@ pub fn main() {
     grid = read_into_grid();
     let max_diagonal_rtl = check_diagonals_rtl(grid);
     let arr = vec![max_diagonal, max_diagonal_rtl, max_horizontal, max_vertical];
-    println!("{}", arr.iter().max().unwrap());
+    println!("{} Larget item in all:", arr.iter().max().unwrap());
     println!("Script took {} seconds to run", now.elapsed().as_secs());
 }
