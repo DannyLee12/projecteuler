@@ -131,5 +131,5 @@ pub fn main() {
     let max_diagonal_rtl = check_diagonals_rtl(grid);
     let arr = vec![max_diagonal, max_diagonal_rtl, max_horizontal, max_vertical];
     println!("{} Larget item in all:", arr.iter().max().unwrap());
-    println!("Script took {} seconds to run", now.elapsed().as_secs());
+    println!("Script took {} milliseconds to run", now.elapsed().as_millis());
 }
