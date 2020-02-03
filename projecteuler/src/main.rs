@@ -1,5 +1,5 @@
-mod euler_16;
+mod euler_17;
 
 fn main() {
-    euler_16::main();
+    euler_17::main();
 }
