@@ -13,11 +13,8 @@ pub fn sieve_erat(range: u64) -> Vec<u64> {
             if !v.contains( & j){
                 v.push( j)
             }
-//        println!("{}", val);
         }
     }
-    println!("{}", v.len());
-//    println!("{:?}", v.iter().nth(10001));
     v
 }
 
