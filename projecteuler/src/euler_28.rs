@@ -25,7 +25,7 @@ pub fn main() {
     let mut diagonal_4 = 9;
     let mut number_to_add = 0;
     let mut total = 1 + 3 + 5 + 7 + 9;
-    while (diagonal_4 < size * size) {
+    while diagonal_4 < size * size {
         diagonal_1 += 10 + number_to_add;
         diagonal_2 += 12 + number_to_add;
         diagonal_3 += 14 + number_to_add;
