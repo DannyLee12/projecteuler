@@ -1,7 +1,6 @@
-mod euler_29;
+mod euler_30;
 
 
 fn main() {
-//    let sieve = euler_7::sieve_erat(200000);
-    euler_29::main();
+    euler_30::main();
 }
