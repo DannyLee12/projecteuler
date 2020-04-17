@@ -15,8 +15,14 @@ pub fn main() {
     let data = fs::read_to_string("/Users/daniellee/Development/projecteuler/projecteuler/src/primes.txt").expect("Unable to read file");
     let primes: Vec<&str> = data.split(" ").collect();
     let mut total = 0;
+    let mut counter = 0;
     for prime in primes {
-        if prime.parse::<u64>().unwrap() > 1000000 { break };
+        if counter % 5000 == 0 {
+            println!("{}", counter);
+            println!("{}", prime);
+        }
+        counter += 1;
+        if prime.parse::<u64>().unwrap() > 2000001 { break };
         if prime.bytes().count() == 1 {
             total += 1;
         }
@@ -27,6 +33,7 @@ pub fn main() {
                 let mut s: String = p.into_iter().collect();
                 s.push_str(" ");
                 let s = format!(" {}", s);
+//                println!("{}", s);
                 if ! data.contains(&s) {
                     circular = false;
                     break;
@@ -34,6 +41,7 @@ pub fn main() {
             }
             if circular {
                 total += 1;
+//                println!("Total: {}, Prime: {}", total, prime);
                 if total % 50 == 0 {
                     println!("Total: {}", total);
                 }
