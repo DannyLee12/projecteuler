@@ -1,6 +1,6 @@
-mod e_35;
+mod e_36;
 
 
 fn main() {
-    e_35::main();
+    e_36::main();
 }
