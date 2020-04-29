@@ -44,9 +44,7 @@ pub fn main() {
     for word in wordlist {
         let mut word_total = 0;
         for c in word.chars() {
-//            println!("{}, {}", c, triangles[&c]);
             word_total += triangles[&c];
-//            println!("{}, {}, {}", c, triangles[&c], word_total);
         }
         if triangles_vec.contains(&word_total) {
             println!("{}", word);
