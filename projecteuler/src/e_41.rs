@@ -52,5 +52,5 @@ pub fn main() {
         }
     }
     println!("Total triangle words: {}", total);
-    println!("Script took {} seconds to run", now.elapsed().as_millis());
+    println!("Script took {} milliseconds to run", now.elapsed().as_millis());
 }
