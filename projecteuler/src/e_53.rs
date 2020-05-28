@@ -14,11 +14,11 @@ It is not until n=23
 How many, not necessarily distinct, values of (nr)
 for 1 ≤ n ≤ 100, are greater than one-million?
 */
+
 extern crate num_bigint;
 use std::time::Instant;
 use std::collections::HashMap;
-//use self::num_bigint::{BigUint, ToBigInt, BigInt};
-//use self::num_bigint::ToBigInt::to_bigint;
+
 use num_bigint::{BigUint, ToBigUint};
 
 fn factorial(n: BigUint) -> BigUint {
