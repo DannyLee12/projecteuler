@@ -33,6 +33,19 @@ use std::time::Instant;
 use std::collections::HashMap;
 
 
+fn flush(hand: &str) -> bool {
+    let mut suit = "*";
+    for card in hand.split(" ") {
+        if suit == "*"{
+            suit = &card[1..2]
+        }
+        else if &card[1..2] != suit {
+            return false
+        }
+    }
+    return true
+}
+
 fn sets(hand: &str) -> Vec<bool> {
     let mut hm: HashMap<&str, i32> = HashMap::new();
 
@@ -52,7 +65,7 @@ fn sets(hand: &str) -> Vec<bool> {
     let mut full_house = false;
     let mut three = false;
     let mut four = false;
-    for (k, v) in hm {
+    for (_k, v) in hm {
         if v == 2 {
             if !pair {
                 pair = true;
@@ -64,6 +77,7 @@ fn sets(hand: &str) -> Vec<bool> {
             if three {
                 full_house = true;
                 three = false;
+                pair = false;
             }
         }
         if v == 3 {
@@ -99,42 +113,47 @@ fn royal_flush(hand: &str) -> bool{
     }
     return true
 }
-
-fn straight_flush(hand: &str) -> bool {
-    // TODO: Replace with straight + flush logic
-    let mut suit: char = '*';
-    let mut sf: Vec<&str> = vec![];
-    for card in hand.split(" ") {
-        sf.push(&card[0..1]);
-        if suit == '*'{
-            suit = card.chars().nth(1).unwrap();
-        }
-        else if suit != card.chars().nth(1).unwrap() {
-            return false
-        }
-    }
-    sf.sort();
-    println!("{:?}", sf);
-    return true
-}
+//
+//fn straight_flush(hand: &str) -> bool {
+//    // TODO: Replace with straight + flush logic
+//    let mut suit: char = '*';
+//    let mut sf: Vec<&str> = vec![];
+//    for card in hand.split(" ") {
+//        sf.push(&card[0..1]);
+//        if suit == '*'{
+//            suit = card.chars().nth(1).unwrap();
+//        }
+//        else if suit != card.chars().nth(1).unwrap() {
+//            return false
+//        }
+//    }
+//    sf.sort();
+//    println!("{:?}", sf);
+//    return true
+//}
 
 fn tests() {
-    assert!(royal_flush("TS JS QS KS AS"));
-    assert_eq!(royal_flush("TC JS QS KS AS"), false);
-    assert_eq!(royal_flush("9S JS QS KS AS"), false);
-    assert!(straight_flush("3S 4S 5S 6S 7S"));
-    assert!(straight_flush("AS 2S 3S 4S 5S"));
-    assert!(straight_flush("9S TS JS QS KS"));
-    // Pair
-    assert_eq!(sets("2S 2C 3C 4C 5C"), vec![true, false, false, false, false]);
-    // Two Pair
-    assert_eq!(sets("2S 2C 3C 3S 5C"), vec![false, true, false, false, false]);
-    // Three of a kind
-    assert_eq!(sets("2S 2C 2D 3S 5C"), vec![false, false, false, true, false]);
+    for _ in 0..100 {
+        assert!(royal_flush("TS JS QS KS AS"));
+        assert_eq!(royal_flush("TC JS QS KS AS"), false);
+        assert_eq!(royal_flush("9S JS QS KS AS"), false);
+//        assert!(straight_flush("3S 4S 5S 6S 7S"));
+//        assert!(straight_flush("AS 2S 3S 4S 5S"));
+//        assert!(straight_flush("9S TS JS QS KS"));
+        // Pair
+        assert_eq!(sets("2S 2C 3C 4C 5C"), vec![true, false, false, false, false]);
+        // Two Pair
+        assert_eq!(sets("2S 2C 3C 3S 5C"), vec![false, true, false, false, false]);
+        // Three of a kind
+        assert_eq!(sets("2S 2C 2D 3S 5C"), vec![false, false, false, true, false]);
     // Full House
-    assert_eq!(sets("2S 2C 3C 3S 3D"), vec![false, false, true, false, false]);
+        assert_eq!(sets("2S 2C 3C 3S 3D"), vec![false, false, true, false, false]);
+        assert_eq!(sets("2S 2C 2C 3S 3D"), vec![false, false, true, false, false]);
     // Four of a kind
-    assert_eq!(sets("2S 2C 2D 2H 5C"), vec![false, false, false, false, true]);
+        assert_eq!(sets("2S 2C 2D 2H 5C"), vec![false, false, false, false, true]);
+        assert!(flush("2S 3S 4S 5S TS"));
+        assert_eq!(flush("2S 3S 4S 5S TC"), false);
+    }
 }
 
 pub fn main() {
