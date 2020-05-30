@@ -32,6 +32,40 @@ use std::fs;
 use std::time::Instant;
 use std::collections::HashMap;
 
+fn straight(hand: &str) -> bool {
+    let mut options: Vec<&str> = vec![];
+    // Push on royal family options
+    options.push("AJKQT");
+    options.push("9JKQT");
+    options.push("89JQT");
+    options.push("789JT");
+    options.push("6789T");
+    options.push("2345A");
+    let mut cards: Vec<char> = vec![];
+    for card in hand.split(" ") {
+        cards.push(card.chars().nth(0).unwrap())
+    }
+    cards.sort();
+    let s: String = cards.iter().collect();
+    // Check for the options defined above
+    if options.contains(&&s[..]) {
+        return true
+    }
+    let mut current_val = 0;
+    for val in cards {
+        let v = val as i32 - '0' as i32;
+        if current_val == 0 {
+            current_val = v;
+            continue;
+        }
+        else if v != current_val + 1 {
+            return false
+        }
+        current_val = v;
+    }
+    true
+}
+
 
 fn flush(hand: &str) -> bool {
     let mut suit = "*";
@@ -113,33 +147,27 @@ fn royal_flush(hand: &str) -> bool{
     }
     return true
 }
-//
-//fn straight_flush(hand: &str) -> bool {
-//    // TODO: Replace with straight + flush logic
-//    let mut suit: char = '*';
-//    let mut sf: Vec<&str> = vec![];
-//    for card in hand.split(" ") {
-//        sf.push(&card[0..1]);
-//        if suit == '*'{
-//            suit = card.chars().nth(1).unwrap();
-//        }
-//        else if suit != card.chars().nth(1).unwrap() {
-//            return false
-//        }
-//    }
-//    sf.sort();
-//    println!("{:?}", sf);
-//    return true
-//}
+
+fn straight_flush(hand: &str) -> bool {
+    return straight(hand) && flush(hand)
+}
 
 fn tests() {
-    for _ in 0..100 {
+    for _ in 0..1 {
+        assert!(straight("AS 2S 3C 4C 5S"));
+        assert!(straight("6S 2S 3C 4C 5S"));
+        assert!(straight("TS JS KC QC AS"));
+        assert!(straight("9S JS KC QC TS"));
+        assert!(straight("TS JS 9C QC 8S"));
+        assert!(straight("TS JS 9C 8C 7S"));
+        assert!(straight("TS 7S 6C 8C 9S"));
+        assert_eq!(straight("AS TC 4H 6S 8S"), false);
         assert!(royal_flush("TS JS QS KS AS"));
         assert_eq!(royal_flush("TC JS QS KS AS"), false);
         assert_eq!(royal_flush("9S JS QS KS AS"), false);
-//        assert!(straight_flush("3S 4S 5S 6S 7S"));
-//        assert!(straight_flush("AS 2S 3S 4S 5S"));
-//        assert!(straight_flush("9S TS JS QS KS"));
+        assert!(straight_flush("3S 4S 5S 6S 7S"));
+        assert!(straight_flush("AS 2S 3S 4S 5S"));
+        assert!(straight_flush("9S TS JS QS KS"));
         // Pair
         assert_eq!(sets("2S 2C 3C 4C 5C"), vec![true, false, false, false, false]);
         // Two Pair
