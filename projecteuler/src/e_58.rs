@@ -20,9 +20,9 @@ which the ratio of primes along both diagonals first falls below 10%?
 */
 
 use std::time::Instant;
+use itertools::Itertools;
 
-
-fn is_prime(n: u64) -> bool {
+pub fn is_prime(n: u64) -> bool {
     if n <= 1 { return false } ;
     if n == 2 {return true};
     if n % 2 == 0 { return false};

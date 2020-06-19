@@ -1,7 +1,6 @@
-mod e_59;
-
+mod e_60;
 
 fn main() {
 //    println!("{}", u128::max_value());
-    e_59::main();
+    e_60::main();
 }
