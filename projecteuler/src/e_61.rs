@@ -131,6 +131,6 @@ pub fn main() {
                     }
                 }
             }
-    }
+        }
     println!("Script took {} milliseconds to run", now.elapsed().as_millis());
-}
+    }
